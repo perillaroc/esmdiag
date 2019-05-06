@@ -2,12 +2,11 @@ module EsmDiag
   def self.attached_variables
     return @@attached_variables if defined? @@attached_variables
     @@attached_variables = {}
-    # 网格权重
     ConfigManager.model_info.each do |comp, config|
       @@attached_variables[comp] = []
       if ConfigManager.model_info[comp].has_key? :fixed
         case ConfigManager.model_info[comp][:grid].to_sym
-        when :lat_lon
+        when :lat_lon, :latlon
           if ConfigManager.model_info[comp][:fixed].has_key? 'wgt_lon'
             @@attached_variables[comp] << ConfigManager.model_info[comp][:fixed]['wgt_lon']
           end
